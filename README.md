@@ -2,7 +2,7 @@
 
 Service for finding the most likely address for a search query.
 
-Requires the `API_KEY` environment variable with a Google Geocode API key.
+Requires the `API_KEY` environment variable with a Google Maps Geocoding API key.
 
 ### Example
 
