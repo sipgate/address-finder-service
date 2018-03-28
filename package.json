@@ -1,0 +1,33 @@
+{
+  "name": "ts-node-seed",
+  "version": "1.0.0",
+  "description": "Boilerplate project for Node.js apps in TypeScript",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "repository": "git@github.com:fgladisch/ts-node-seed.git",
+  "author": "Felix Gladisch <felix@felixgladisch.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fgladisch/ts-node-seed/issues"
+  },
+  "keywords": ["typescript", "boilerplate", "seed"],
+  "devDependencies": {
+    "@types/chai": "4.1.2",
+    "@types/mocha": "5.0.0",
+    "@types/node": "9.6.0",
+    "chai": "4.1.2",
+    "mocha": "5.0.5",
+    "rimraf": "2.6.2",
+    "ts-node": "5.0.1",
+    "tslint": "5.9.1",
+    "tslint-config-prettier": "1.10.0",
+    "typescript": "2.7.2"
+  },
+  "scripts": {
+    "start": "ts-node src/index",
+    "build": "rimraf dist && tsc",
+    "test": "mocha -r ts-node/register src/**/*.test.ts",
+    "prepublishOnly": "yarn test && yarn build"
+  }
+}

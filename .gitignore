@@ -1,0 +1,10 @@
+# Node files
+node_modules
+npm-debug.log
+yarn-error.log
+
+# IDE files
+.vscode/
+
+#TypeScript
+dist/
