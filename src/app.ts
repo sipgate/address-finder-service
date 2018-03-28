@@ -7,9 +7,12 @@ const PORT: number = Number(process.env.PORT) || 8080;
 
 const app: express.Application = express();
 
-app.get("/", async (req, res) => {
+app.get("/address", async (req, res) => {
   try {
     const { search } = req.query;
+    if (!search) {
+      return res.status(404).send();
+    }
     const address: Address = await findAddress(search);
     if (address) {
       return res.send(address);

@@ -6,7 +6,7 @@ Requires the `API_KEY` environment variable with a Google Maps Geocoding API key
 
 ### Example
 
-GET http://localhost:8080/?search=sipgate%20gmbh
+GET http://localhost:8080/address?search=sipgate%20gmbh
 
 Response:
 
