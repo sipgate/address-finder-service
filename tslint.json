@@ -6,7 +6,8 @@
       "call-signature",
       "parameter",
       "variable-declaration",
-      "member-variable-declaration"
+      "member-variable-declaration",
+      "property-declaration"
     ],
     "semicolon": true,
     "no-implicit-dependencies": false,
