@@ -1,9 +1,23 @@
-# ts-node-seed
+# address-finder-service
 
-Boilerplate project for Node.js apps in TypeScript.
+Service for finding the most likely address for a search query.
 
-```bash
-git clone git@github.com:fgladisch/ts-node-seed.git <my-project>
+Requires the `API_KEY` environment variable with a Google Geocode API key.
+
+### Example
+
+GET http://localhost:8080/?search=sipgate%20gmbh
+
+Response:
+
+```json
+{
+  "streetNumber": "74",
+  "street": "Gladbacher Straße",
+  "city": "Düsseldorf",
+  "country": "Germany",
+  "zip": "40219"
+}
 ```
 
 ## License

@@ -1,6 +1,6 @@
 {
   "name": "address-finder-service",
-  "version": "1.0.0",
+  "private": true,
   "description": "Service for finding the most likely address for a search query.",
   "main": "dist/app.js",
   "files": ["dist"],
