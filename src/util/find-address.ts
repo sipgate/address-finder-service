@@ -2,18 +2,9 @@ import axios from "axios";
 import qs = require("querystring");
 
 import Address from "../address.model";
+import { GoogleLocation } from "./google-location.model";
 
 const API_URL: string = "https://maps.googleapis.com/maps/api/geocode/json";
-
-interface AddressComponent {
-  short_name: string;
-  long_name: string;
-  types: string[];
-}
-
-interface Location {
-  address_components: AddressComponent[];
-}
 
 const apiKey: string = process.env.API_KEY;
 
@@ -25,7 +16,7 @@ const addressTypeToProp: Map<string, string> = new Map([
   ["country", "country"]
 ]);
 
-function getLocationByAddressSearch(address: string): Promise<any> {
+function getLocationByAddressSearch(address: string): Promise<GoogleLocation> {
   const query: string = qs.stringify({
     address,
     key: apiKey
@@ -35,7 +26,7 @@ function getLocationByAddressSearch(address: string): Promise<any> {
 
 export default async function findAddress(query: string): Promise<Address> {
   try {
-    const location: Location = await getLocationByAddressSearch(query);
+    const location: GoogleLocation = await getLocationByAddressSearch(query);
     if (location) {
       const response: Address = {};
       location.address_components.forEach(component => {

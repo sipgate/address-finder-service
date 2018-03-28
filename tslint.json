@@ -14,6 +14,7 @@
     "interface-name": false,
     "indent": [true, "spaces"],
     "quotemark": [true, "double"],
+    "no-any": true,
     "no-console": false,
     "array-type": false
   }
