@@ -1,6 +1,6 @@
 # address-finder-service
 
-Service for finding the most likely address for a search query.
+Service for finding the most likely german address for a search query.
 
 Requires the `API_KEY` environment variable with a Google Maps Geocoding API key.
 
