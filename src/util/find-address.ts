@@ -5,8 +5,10 @@ import Address from "../address.model";
 import { GoogleLocation } from "./google-location.model";
 
 const API_URL: string = "https://maps.googleapis.com/maps/api/geocode/json";
+const SEARCH_REGION: string = "de";
+const SEARCH_LANGUAGE: string = "de";
 
-const apiKey: string = process.env.API_KEY;
+const { API_KEY } = process.env;
 
 const addressTypeToProp: Map<string, string> = new Map([
   ["route", "street"],
@@ -19,7 +21,9 @@ const addressTypeToProp: Map<string, string> = new Map([
 function getLocationByAddressSearch(address: string): Promise<GoogleLocation> {
   const query: string = qs.stringify({
     address,
-    key: apiKey
+    key: API_KEY,
+    language: SEARCH_LANGUAGE,
+    region: SEARCH_REGION
   });
   return axios(`${API_URL}?${query}`).then(({ data }) => data.results[0]);
 }
