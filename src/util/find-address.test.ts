@@ -11,7 +11,7 @@ describe("Address Search", () => {
     assert.equal(address.streetNumber, "74");
     assert.equal(address.zip, "40219");
     assert.equal(address.city, "Düsseldorf");
-    assert.equal(address.country, "Germany");
+    assert.equal(address.country, "Deutschland");
   });
 
   it("should not find an address for 'a1b2c3d4e5f6g7h8i9j'", async () => {
