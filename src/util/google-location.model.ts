@@ -5,5 +5,12 @@ export interface AddressComponent {
 }
 
 export interface GoogleLocation {
+  place_id: string;
+  formatted_address: string;
   address_components: AddressComponent[];
+}
+
+export interface GooglePlaceDetail {
+  name: string;
+  international_phone_number: string;
 }
