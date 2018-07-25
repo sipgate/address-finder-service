@@ -14,7 +14,7 @@ export default async function handleAddressRequest(req: Request, res: Response):
       handleNotFound(res);
       return;
     }
-    const address: Address = await findAddress(search);
+    const address: Address | null = await findAddress(search);
     if (address) {
       res.send(address);
       return;

@@ -28,7 +28,7 @@ function getLocationByAddressSearch(address: string): Promise<GoogleLocation> {
   return axios(`${API_URL}?${query}`).then(({ data }) => data.results[0]);
 }
 
-export default async function findAddress(query: string): Promise<Address> {
+export default async function findAddress(query: string): Promise<Address | null> {
   try {
     const location: GoogleLocation = await getLocationByAddressSearch(query);
     if (location) {
@@ -36,8 +36,26 @@ export default async function findAddress(query: string): Promise<Address> {
       location.address_components.forEach(component => {
         const [type] = component.types.filter(entry => addressTypeToProp.get(entry));
         if (type) {
-          const prop: string = addressTypeToProp.get(type);
-          response[prop] = component.long_name;
+          const prop: string | null = addressTypeToProp.get(type) || null;
+          switch (prop) {
+            case "street":
+              response.street = component.long_name;
+              break;
+            case "streetNumber":
+              response.streetNumber = component.long_name;
+              break;
+            case "zip":
+              response.zip = component.long_name;
+              break;
+            case "city":
+              response.city = component.long_name;
+              break;
+            case "country":
+              response.country = component.long_name;
+              break;
+            default:
+              break;
+          }
         }
       });
       return response;
