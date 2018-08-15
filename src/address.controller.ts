@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 
 import Address from "./address.model";
 import findAddress from "./util/find-address";
+import { parseGeolocationPosition } from "./util/geolocation";
 
 function handleNotFound(res: Response): void {
   res.status(404).send();
@@ -9,12 +10,12 @@ function handleNotFound(res: Response): void {
 
 export default async function handleAddressRequest(req: Request, res: Response): Promise<void> {
   try {
-    const { search } = req.query;
+    const {search} = req.query;
     if (!search) {
       handleNotFound(res);
       return;
     }
-    const address: Address | null = await findAddress(search);
+    const address: Address | null = await findAddress(search, parseGeolocationPosition(req.query));
     if (address) {
       res.send(address);
       return;
