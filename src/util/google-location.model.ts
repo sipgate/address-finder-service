@@ -4,10 +4,18 @@ export interface AddressComponent {
   types: string[];
 }
 
+export interface GoogleLocationResponse {
+  results: GoogleLocation[];
+}
+
 export interface GoogleLocation {
   place_id: string;
   formatted_address: string;
   address_components: AddressComponent[];
+}
+
+export interface GooglePlaceDetailResponse {
+  result: GooglePlaceDetail;
 }
 
 export interface GooglePlaceDetail {

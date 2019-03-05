@@ -5,10 +5,7 @@
     "outDir": "dist",
     "sourceMap": true,
     "declaration": true,
-    "strictNullChecks": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true
+    "strict": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "src/**/*.test.ts"]

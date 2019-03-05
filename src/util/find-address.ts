@@ -4,7 +4,12 @@ import qs = require("querystring");
 import Address from "../address.model";
 import GeolocationPosition from "../geolocation.model";
 import { buildBounds } from "./geolocation";
-import { GoogleLocation, GooglePlaceDetail } from "./google-location.model";
+import {
+  GoogleLocation,
+  GooglePlaceDetail,
+  GoogleLocationResponse,
+  GooglePlaceDetailResponse
+} from "./google-location.model";
 
 const API_URL_GEOCODE: string = "https://maps.googleapis.com/maps/api/geocode/json";
 const API_URL_PLACE_DETAIL: string = "https://maps.googleapis.com/maps/api/place/details/json";
@@ -29,7 +34,10 @@ const addressTypeToProp: Map<string, string> = new Map([
   ["country", "country"]
 ]);
 
-function getLocationByAddressSearch(address: string, position?: GeolocationPosition): Promise<GoogleLocation> {
+async function getLocationByAddressSearch(
+  address: string,
+  position?: GeolocationPosition
+): Promise<GoogleLocation> {
   const query: GeocodeRequestQuery = {
     address,
     key: API_KEY || "",
@@ -41,26 +49,31 @@ function getLocationByAddressSearch(address: string, position?: GeolocationPosit
     query.bounds = buildBounds(position);
   }
 
-  const url: string = `${API_URL_GEOCODE}?${qs.stringify(query)}`;
+  const url = `${API_URL_GEOCODE}?${qs.stringify(query)}`;
 
-  return axios(url).then(({ data }) => data.results[0]);
+  const { data } = await axios.get<GoogleLocationResponse>(url);
+  return data.results[0];
 }
 
-function getPlaceDetailsByPlaceId(placeId: string): Promise<GooglePlaceDetail> {
-  const query: string = qs.stringify({
+async function getPlaceDetailsByPlaceId(placeId: string): Promise<GooglePlaceDetail> {
+  const query = qs.stringify({
     key: API_KEY,
     language: SEARCH_LANGUAGE,
     placeid: placeId,
     region: SEARCH_REGION
   });
-  return axios(`${API_URL_PLACE_DETAIL}?${query}`).then(({ data }) => data.result);
+  const { data } = await axios.get<GooglePlaceDetailResponse>(`${API_URL_PLACE_DETAIL}?${query}`);
+  return data.result;
 }
 
-export default async function findAddress(query: string, position?: GeolocationPosition): Promise<Address | null> {
+export default async function findAddress(
+  query: string,
+  position?: GeolocationPosition
+): Promise<Address | null> {
   try {
-    const location: GoogleLocation = await getLocationByAddressSearch(query, position);
+    const location = await getLocationByAddressSearch(query, position);
     if (location) {
-      const details: GooglePlaceDetail = await getPlaceDetailsByPlaceId(location.place_id);
+      const details = await getPlaceDetailsByPlaceId(location.place_id);
       const response: Address = {
         formatted: location.formatted_address,
         name: details.name,

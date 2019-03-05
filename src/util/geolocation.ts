@@ -1,27 +1,33 @@
 import GeolocationPosition from "../geolocation.model";
 
-export function parseGeolocationPosition({latitude, longitude}: { latitude?: string, longitude?: string }): (GeolocationPosition | undefined) {
+export function parseGeolocationPosition({
+  latitude,
+  longitude
+}: {
+  latitude?: string;
+  longitude?: string;
+}): GeolocationPosition | undefined {
   if (!(latitude && longitude)) {
     return void 0;
   }
 
-  const parsedLatitude: number = Number.parseFloat(latitude);
-  const parsedLongitude: number = Number.parseFloat(longitude);
+  const parsedLatitude = Number.parseFloat(latitude);
+  const parsedLongitude = Number.parseFloat(longitude);
 
   if (isNaN(parsedLatitude) || isNaN(parsedLongitude)) {
     return void 0;
   }
 
-  return {latitude: parsedLatitude, longitude: parsedLongitude};
+  return { latitude: parsedLatitude, longitude: parsedLongitude };
 }
 
+const toRad: (num: number) => number = num => (num * Math.PI) / 180;
 
-const toRad: (num: number) => number = num =>
-    num * Math.PI / 180;
-
-export const buildBounds: (position: GeolocationPosition, distanceMeters?: number) => string = (position, distanceMeters = 10000) => {
-
-  const {latitude, longitude} = position;
+export const buildBounds: (position: GeolocationPosition, distanceMeters?: number) => string = (
+  position,
+  distanceMeters = 10000
+) => {
+  const { latitude, longitude } = position;
 
   const latRadian: number = toRad(latitude);
 
@@ -35,5 +41,7 @@ export const buildBounds: (position: GeolocationPosition, distanceMeters?: numbe
   const leftLng: number = longitude - deltaLong;
   const rightLng: number = longitude + deltaLong;
 
-  return `${bottomLat.toFixed(6)},${leftLng.toFixed(6)}|${topLat.toFixed(6)},${rightLng.toFixed(6)}`;
+  return `${bottomLat.toFixed(6)},${leftLng.toFixed(6)}|${topLat.toFixed(6)},${rightLng.toFixed(
+    6
+  )}`;
 };
