@@ -8,8 +8,8 @@
   ],
   "author": "Felix Gladisch <felix@felixgladisch.de>",
   "scripts": {
-    "start": "yarn build && node dist/app",
-    "build": "rimraf dist && tsc",
+    "postinstall": "tsc",
+    "start": "ts-node src/app",
     "test": "mocha -r ts-node/register src/**/*.test.ts"
   },
   "devDependencies": {
@@ -28,7 +28,6 @@
     "axios": "0.18.0",
     "express": "4.16.3",
     "express-rate-limit": "^3.2.1",
-    "rimraf": "2.6.2",
     "typescript": "2.9.2"
   }
 }
