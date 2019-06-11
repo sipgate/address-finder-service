@@ -5,7 +5,6 @@ import handleAddressRequest from "./address.controller";
 import cors from "./cors.middleware";
 
 const limiter = new RateLimit({
-  delayMs: 0, // disable delaying - full speed until the max limit is reached
   max: 30, // limit each IP to 15 requests per minute
   windowMs: 60000 // 1 minute
 });

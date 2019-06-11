@@ -10,6 +10,7 @@ import {
   GoogleLocationResponse,
   GooglePlaceDetailResponse
 } from "./google-location.model";
+import { ParsedUrlQueryInput } from "querystring";
 
 const API_URL_GEOCODE: string = "https://maps.googleapis.com/maps/api/geocode/json";
 const API_URL_PLACE_DETAIL: string = "https://maps.googleapis.com/maps/api/place/details/json";
@@ -38,7 +39,8 @@ async function getLocationByAddressSearch(
   address: string,
   position?: GeolocationPosition
 ): Promise<GoogleLocation> {
-  const query: GeocodeRequestQuery = {
+
+  const query: ParsedUrlQueryInput = {
     address,
     key: API_KEY || "",
     language: SEARCH_LANGUAGE,
