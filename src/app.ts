@@ -18,6 +18,7 @@ app.use(cors);
 app.use(limiter);
 
 app.get("/address", handleAddressRequest);
+app.get("/health", (_, res) => res.send("OK"));
 
 const server = app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
