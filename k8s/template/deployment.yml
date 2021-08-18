@@ -43,5 +43,8 @@ spec:
               path: /health
               port: 8080
           env:
-            - name: REDIS_URL
-              value: rediss://10.102.0.11:6378
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: $APP
+                  key: api-key

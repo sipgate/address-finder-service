@@ -8,3 +8,6 @@ yarn-error.log
 
 #TypeScript
 dist/
+
+k8s/secrets.yml
+k8s/prod.yml
