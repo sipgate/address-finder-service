@@ -4,8 +4,8 @@ import handleAddressRequest from "./address.controller";
 import cors from "./cors.middleware";
 
 const limiter = RateLimit({
-  max: 30, // limit each IP to 15 requests per minute
-  windowMs: 60000, // 1 minute
+  max: 30,
+  windowMs: 60000,
 });
 
 const PORT = Number(process.env.PORT) || 8080;
