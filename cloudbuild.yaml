@@ -1,0 +1,25 @@
+steps:
+  - id: docker-build
+    name: "gcr.io/kaniko-project/executor:latest"
+    args:
+      [
+        "--destination=eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA",
+        "--destination=eu.gcr.io/$PROJECT_ID/$REPO_NAME:latest",
+        "--cache=true",
+        "--cache-ttl=720h",
+      ]
+
+  - id: kubernetes-image
+    waitFor: ["docker-build"]
+    name: "gcr.io/cloud-builders/kubectl"
+    args:
+      [
+        "set",
+        "image",
+        "deployment",
+        "$REPO_NAME",
+        "$REPO_NAME=eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA",
+      ]
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=europe-west3"
+      - "CLOUDSDK_CONTAINER_CLUSTER=clinq-services-cluster"

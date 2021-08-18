@@ -1,12 +1,11 @@
-import express = require("express");
-import RateLimit = require("express-rate-limit");
-
+import express from "express";
+import RateLimit from "express-rate-limit";
 import handleAddressRequest from "./address.controller";
 import cors from "./cors.middleware";
 
-const limiter = new RateLimit({
+const limiter = RateLimit({
   max: 30, // limit each IP to 15 requests per minute
-  windowMs: 60000 // 1 minute
+  windowMs: 60000, // 1 minute
 });
 
 const PORT = Number(process.env.PORT) || 8080;
